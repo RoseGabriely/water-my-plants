@@ -2,6 +2,7 @@ import React from "react";
 import { plantsStart } from "../actions";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import Plant from "./Plant";
 
@@ -9,6 +10,15 @@ const PlantsList = (props) => {
   const handleClick = () => {};
   return (
     <div className="PlantsList">
+      <header>
+        <StyledNav>
+          <StyledLink>
+            <Link to="/update" style={{ textDecoration: "none" }}>
+              Update Account
+            </Link>
+          </StyledLink>
+        </StyledNav>
+      </header>
       <StyledPlantsList>
         <div>
           <h2>Plants List</h2>
@@ -34,4 +44,20 @@ export default connect(mapStateToProps, { plantsStart })(PlantsList);
 const StyledPlantsList = styled.div`
   display: flex;
   justify-content: center;
+`;
+
+const StyledNav = styled.nav`
+  display: flex;
+  justify-content: center;
+`;
+
+const StyledLink = styled.div`
+  padding: 0.8rem;
+  margin: 0.5rem;
+  text-decoration: none;
+  background-color: #a0e7e5;
+  transition: 0.2s;
+  &:hover {
+    background: #b4f8c8;
+  }
 `;

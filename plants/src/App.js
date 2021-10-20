@@ -10,6 +10,7 @@ import HomePage from "./components/HomePage";
 import Login from "./components/Login";
 import PlantsList from "./components/PlantsList";
 import CreateAccount from "./components/CreateAccount";
+import UpdateAccount from "./components/UpdateAccount";
 
 function App(props) {
   useEffect(() => {
@@ -32,12 +33,20 @@ function App(props) {
                 Sign In
               </Link>
             </StyledLink>
+            <StyledLink>
+              <Link to="/plants" style={{ textDecoration: "none" }}>
+                Plants
+              </Link>
+            </StyledLink>
           </StyledNav>
         </nav>
       </header>
       <Switch>
         <Route path="/create-account">
           <CreateAccount/>
+        </Route>
+        <Route path="/update">
+          <UpdateAccount />
         </Route>
         <Route path="/sign-in">
           <Login />
@@ -55,12 +64,13 @@ function App(props) {
 
 export default connect(null, { plantsStart })(App);
 
+//
 const StyledNav = styled.div`
   display: flex;
   justify-content: center;
 `;
 
-const StyledLink = styled(Link)`
+const StyledLink = styled.div`
   padding: 0.8rem;
   margin: 0.5rem;
   text-decoration: none;

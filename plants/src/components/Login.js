@@ -5,6 +5,7 @@ import * as yup from "yup";
 import loginSchema from '../yup/yupLoginSchema';
 import { Link } from 'react-router-dom';
 
+
 export default function Login() {
   const initialLoginValues = {
     username: "",
@@ -21,15 +22,17 @@ export default function Login() {
 
   // VALIDATION //
   const validate = (name, value) => {
-    yup.reach(loginSchema, name)
-      .validate(name, value)
+    yup
+      .reach(loginSchema, name)
+      .validate(value)
       .then(() => setErrors({ ...errors, [name]: "" }))
       .catch(err => setErrors({ ...errors, [name]: err.errors }))
+
   };
   // ON CHANGE //
   const change = (e) => {
     const { name, value } = e.target;
-    validate(name, value)
+    validate(name, value);
     setLoginValues({ ...loginValues, [name]: value });
   };
   // ON SUBMIT //

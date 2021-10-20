@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import * as yup from "yup";
 import loginSchema from '../yup/yupLoginSchema';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   const initialLoginValues = {
@@ -23,7 +24,7 @@ export default function Login() {
     yup.reach(loginSchema, name)
       .validate(name, value)
       .then(() => setErrors({ ...errors, [name]: "" }))
-      .catch(err => setErrors({ ...errors, [name]: err.errors[0] }))
+      .catch(err => setErrors({ ...errors, [name]: err.errors }))
   };
   // ON CHANGE //
   const change = (e) => {
@@ -73,6 +74,9 @@ export default function Login() {
         </label>
         <br />
         <button onClick={validate}>Login</button>
+        <Link to="/create-account">
+        <button>Create Account</button>
+        </Link>
       </form>
       <p style={{ color: "red" }}>{errors.apiError}</p>
       <p style={{ color: "red" }}>{errors.username}</p>

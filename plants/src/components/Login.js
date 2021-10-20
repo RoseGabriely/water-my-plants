@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import * as yup from "yup";
-import loginSchema from '../yup/yupLoginSchema';
+import loginSchema from "../yup/yupLoginSchema";
 
 export default function Login() {
   const initialLoginValues = {
@@ -20,15 +20,16 @@ export default function Login() {
 
   // VALIDATION //
   const validate = (name, value) => {
-    yup.reach(loginSchema, name)
+    yup
+      .reach(loginSchema, name)
       .validate(name, value)
       .then(() => setErrors({ ...errors, [name]: "" }))
-      .catch(err => setErrors({ ...errors, [name]: err.errors[0] }))
+      .catch((err) => setErrors({ ...errors, [name]: err.errors[0] }));
   };
   // ON CHANGE //
   const change = (e) => {
     const { name, value } = e.target;
-    validate(name, value)
+    validate(name, value);
     setLoginValues({ ...loginValues, [name]: value });
   };
   // ON SUBMIT //
@@ -72,7 +73,7 @@ export default function Login() {
           />
         </label>
         <br />
-        <button onClick={validate}>Login</button>
+        <button>Login</button>
       </form>
       <p style={{ color: "red" }}>{errors.apiError}</p>
       <p style={{ color: "red" }}>{errors.username}</p>

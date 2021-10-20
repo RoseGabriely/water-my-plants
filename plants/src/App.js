@@ -9,6 +9,7 @@ import styled from "styled-components";
 import HomePage from "./components/HomePage";
 import Login from "./components/Login";
 import PlantsList from "./components/PlantsList";
+import CreateAccount from "./components/CreateAccount";
 
 function App(props) {
   useEffect(() => {
@@ -35,6 +36,9 @@ function App(props) {
         </nav>
       </header>
       <Switch>
+        <Route path="/create-account">
+          <CreateAccount/>
+        </Route>
         <Route path="/sign-in">
           <Login />
         </Route>

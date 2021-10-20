@@ -32,6 +32,11 @@ function App(props) {
                 Sign In
               </Link>
             </StyledLink>
+            <StyledLink>
+              <Link to="/plants" style={{ textDecoration: "none" }}>
+                Plants
+              </Link>
+            </StyledLink>
           </StyledNav>
         </nav>
       </header>
@@ -55,12 +60,13 @@ function App(props) {
 
 export default connect(null, { plantsStart })(App);
 
+//
 const StyledNav = styled.div`
   display: flex;
   justify-content: center;
 `;
 
-const StyledLink = styled(Link)`
+const StyledLink = styled.div`
   padding: 0.8rem;
   margin: 0.5rem;
   text-decoration: none;

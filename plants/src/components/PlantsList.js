@@ -13,7 +13,9 @@ const PlantsList = (props) => {
       <header>
         <StyledNav>
           <StyledLink>
-            <Link to="/update" style={{ textDecoration: "none" }}>Update Account</Link>
+            <Link to="/update" style={{ textDecoration: "none" }}>
+              Update Account
+            </Link>
           </StyledLink>
         </StyledNav>
       </header>
@@ -49,7 +51,7 @@ const StyledNav = styled.nav`
   justify-content: center;
 `;
 
-const StyledLink = styled(Link)`
+const StyledLink = styled.div`
   padding: 0.8rem;
   margin: 0.5rem;
   text-decoration: none;

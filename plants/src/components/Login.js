@@ -22,7 +22,7 @@ export default function Login() {
   const validate = (name, value) => {
     yup
       .reach(loginSchema, name)
-      .validate(name, value)
+      .validate(value)
       .then(() => setErrors({ ...errors, [name]: "" }))
       .catch((err) => setErrors({ ...errors, [name]: err.errors[0] }));
   };

@@ -11,7 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-/* LOGIN PAGE */
+/* LOGIN / CREATE ACCOUNT PAGE */
 #login-form, 
 #create-account-form {
   display: flex;
@@ -21,6 +21,9 @@ code {
 }
 #create-account-form input {
   margin: 1%
+}
+.errors {
+  color: red;
 }
 
 

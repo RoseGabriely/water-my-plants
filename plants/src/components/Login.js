@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import * as yup from "yup";
-import { yupLoginSchema as schema } from "../yup/yupLoginSchema";
+import loginSchema from '../yup/yupLoginSchema';
 
 export default function Login() {
   const initialLoginValues = {
@@ -11,30 +11,29 @@ export default function Login() {
   };
   const initialErrors = {
     apiError: "",
-    //feel free to add YUP errors here
+    username: "",
+    password: "",
   };
   const { push } = useHistory();
   const [loginValues, setLoginValues] = useState(initialLoginValues);
   const [errors, setErrors] = useState(initialErrors);
 
   // VALIDATION //
-  const validate = (credentials) => {
-    // Validate / authenticate credentials onSubmit
+  const validate = (name, value) => {
+    yup.reach(loginSchema, name)
+      .validate(name, value)
+      .then(() => setErrors({ ...errors, [name]: "" }))
+      .catch(err => setErrors({ ...errors, [name]: err.errors[0] }))
   };
   // ON CHANGE //
   const change = (e) => {
     const { name, value } = e.target;
-    // Update state with the changes
+    validate(name, value)
     setLoginValues({ ...loginValues, [name]: value });
   };
   // ON SUBMIT //
   const submit = (e) => {
     e.preventDefault();
-    const loginCredentials = {
-      username: loginValues.username,
-      password: loginValues.password,
-    };
-    validate(loginCredentials);
     axios
       .post("https://watergrows.herokuapp.com/api/users/login", loginValues)
       .then((res) => {
@@ -76,6 +75,8 @@ export default function Login() {
         <button onClick={validate}>Login</button>
       </form>
       <p style={{ color: "red" }}>{errors.apiError}</p>
+      <p style={{ color: "red" }}>{errors.username}</p>
+      <p style={{ color: "red" }}>{errors.password}</p>
     </>
   );
 }

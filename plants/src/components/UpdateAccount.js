@@ -1,2 +1,83 @@
 // create a form to update passwords and phone numbers, save data to state
 // Dani
+import React, { useState, useEffect } from "react";
+import * as yup from 'yup';
+import schema from '../yup/updateAccSchema';
+
+const initialUpdateValues = {
+    password: '',
+    phoneNumber: ''
+};
+
+const initialUpdateErrors = {
+    password: '',
+    phoneNumber: ''
+}
+
+const initialDisabled = true;
+
+const UpdateAccount = () => {
+
+    const [updateValues, setUpdateValues] = useState(initialUpdateValues);
+    const [updateErrors, setUpdateErrors] = useState(initialUpdateErrors);
+    const [disabled, setDisabled] = useState(initialDisabled);
+
+
+    //*Validation
+    const validate = (name, value) => {
+        yup.reach(schema, name)
+        .validate(value)
+        .then(() => setUpdateErrors({ ...updateErrors, [name]: ''}))
+        .catch(err => setUpdateErrors({ ...updateErrors, [name]: err.errors[0]}))
+    }
+
+    //*OnChange
+    const onChange = (evt) => {
+        const { name, value } = evt.target;
+        setUpdateValues({ ...updateValues, [name]: value });
+    }
+
+    //*Submit
+    const onSubmit = (evt) => {
+        evt.preventDefault();
+        const UpdatedInfo = {
+            password: updateValues.password,
+            phoneNumber: updateValues.phoneNumber
+        }
+        validate(UpdatedInfo);
+    }
+
+    useEffect(() => {
+        schema.isValid(updateValues).then(valid => setDisabled(!valid))
+    }, [updateValues])
+
+    return (
+        <div className="updateAccount">
+            <h2>Update Your Account</h2>
+            <form onSubmit={onSubmit} className='updateAccount'>
+                <label>Password:{" "}
+                    <input
+                        type="password"
+                        name="password"
+                        value={updateValues.password}
+                        onChange={onChange}
+                        placeholder="Enter New Password"
+                    />
+                </label><br/>
+                <label>Phone Number:{" "}
+                    <input
+                        type="tel"
+                        name="phoneNumber"
+                        value={updateValues.phoneNumber}
+                        onChange={onChange}
+                        placeholder="Enter New Number"
+                        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                    />
+                </label><br/>
+                <button disabled={disabled}>Save Changes</button>
+            </form>
+        </div>
+    )
+}
+
+export default UpdateAccount;

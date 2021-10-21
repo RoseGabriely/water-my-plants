@@ -6,9 +6,7 @@ import loginSchema from "../yup/yupLoginSchema";
 import { plantsStart } from "../actions";
 import { connect } from "react-redux";
 
-const Login = (props) => {
-  const { plantsStart } = props;
-
+const Login = () => {
   const initialLoginValues = {
     username: "",
     password: "",
@@ -44,7 +42,6 @@ const Login = (props) => {
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         push("/plants");
-        plantsStart();
       })
       .catch((err) => {
         console.log(err.response);

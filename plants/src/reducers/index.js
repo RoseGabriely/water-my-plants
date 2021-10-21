@@ -14,11 +14,10 @@ const plantsReducer = (state = initialState, action) => {
         isFetching: true,
         error: "",
       };
-
     case FETCH_SUCCESS:
       return {
         ...state,
-        plantsArr: [...state.plantsArr, action.payload],
+        plantsArr: action.payload,
         isFetching: false,
         error: "",
       };

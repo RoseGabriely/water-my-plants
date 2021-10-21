@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { plantsStart } from "../actions";
 import { connect } from "react-redux";
 import styled from "styled-components";
@@ -9,6 +9,12 @@ import Plant from "./Plant";
 
 const PlantsList = (props) => {
   const { push } = useHistory();
+  const { plantsStart } = props;
+
+  useEffect(() => {
+    plantsStart();
+  }, [plantsStart]);
+
   const handleClick = () => {
     push("/");
   };

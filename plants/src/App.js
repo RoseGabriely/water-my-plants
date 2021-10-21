@@ -1,8 +1,5 @@
 import { Link, Route, Switch, useHistory } from "react-router-dom";
 import "./css/App.css";
-import { useEffect } from "react";
-import { connect } from "react-redux";
-import { plantsStart } from "./actions";
 import styled from "styled-components";
 
 //*Custom Components
@@ -12,12 +9,8 @@ import PlantsList from "./components/PlantsList";
 import UpdateAccount from "./components/UpdateAccount";
 import PrivateRoute from "./components/PrivateRoute";
 
-function App(props) {
+function App() {
   const { push } = useHistory();
-
-  useEffect(() => {
-    props.plantsStart();
-  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -71,7 +64,7 @@ function App(props) {
   );
 }
 
-export default connect(null, { plantsStart })(App);
+export default App;
 
 //
 const StyledNav = styled.div`

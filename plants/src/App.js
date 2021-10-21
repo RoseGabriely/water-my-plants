@@ -1,4 +1,4 @@
-import { Link, Route, Switch } from "react-router-dom";
+import { Link, Route, Switch, useHistory } from "react-router-dom";
 import "./css/App.css";
 import { useEffect } from "react";
 import { connect } from "react-redux";
@@ -10,11 +10,19 @@ import HomePage from "./components/HomePage";
 import Login from "./components/Login";
 import PlantsList from "./components/PlantsList";
 import UpdateAccount from "./components/UpdateAccount";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App(props) {
+  const { push } = useHistory();
+
   useEffect(() => {
     props.plantsStart();
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    push("/");
+  };
 
   return (
     <div className="App">
@@ -37,19 +45,24 @@ function App(props) {
                 Plants
               </Link>
             </StyledLink>
+            <StyledLink>
+              <Link
+                to="/"
+                style={{ textDecoration: "none" }}
+                onClick={handleLogout}
+              >
+                Logout
+              </Link>
+            </StyledLink>
           </StyledNav>
         </nav>
       </header>
       <Switch>
-        <Route path="/update">
-          <UpdateAccount />
-        </Route>
+        <PrivateRoute path="/update" component={UpdateAccount} />
         <Route path="/sign-in">
           <Login />
         </Route>
-        <Route path="/plants">
-          <PlantsList />
-        </Route>
+        <PrivateRoute path="/plants" component={PlantsList} />
         <Route path="/">
           <HomePage />
         </Route>

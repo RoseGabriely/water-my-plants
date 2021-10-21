@@ -3,11 +3,15 @@ import { plantsStart } from "../actions";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import Plant from "./Plant";
 
 const PlantsList = (props) => {
-  const handleClick = () => {};
+  const { push } = useHistory();
+  const handleClick = () => {
+    push("/");
+  };
   return (
     <div className="PlantsList">
       <header>

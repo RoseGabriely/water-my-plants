@@ -8,6 +8,7 @@ import Login from "./components/Login";
 import PlantsList from "./components/PlantsList";
 import UpdateAccount from "./components/UpdateAccount";
 import PrivateRoute from "./components/PrivateRoute";
+import UpdatePlant from "./components/UpdatePlant";
 
 function App() {
   const { push } = useHistory();
@@ -51,11 +52,12 @@ function App() {
         </nav>
       </header>
       <Switch>
+        <PrivateRoute path="/update-plant" component={UpdatePlant} />
         <PrivateRoute path="/update" component={UpdateAccount} />
+        <PrivateRoute path="/plants" component={PlantsList} />
         <Route path="/sign-in">
           <Login />
         </Route>
-        <PrivateRoute path="/plants" component={PlantsList} />
         <Route path="/">
           <HomePage />
         </Route>

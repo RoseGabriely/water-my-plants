@@ -1,3 +1,4 @@
+import React from "react";
 import { Link, Route, Switch, useHistory } from "react-router-dom";
 import "./css/App.css";
 import styled from "styled-components";

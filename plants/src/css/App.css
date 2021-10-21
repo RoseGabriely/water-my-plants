@@ -1,7 +1,7 @@
 .App {
   text-align: center;
   background-color: #ffaebc;
-  height: auto;
+  height: 100vmax;
 }
 h1 {
   margin: 0;

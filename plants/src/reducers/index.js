@@ -11,7 +11,6 @@ const plantsReducer = (state = initialState, action) => {
     case FETCH_START:
       return {
         ...state,
-        plantsArr: [],
         isFetching: true,
         error: "",
       };

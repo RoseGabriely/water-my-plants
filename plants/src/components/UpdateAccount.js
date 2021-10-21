@@ -2,6 +2,7 @@
 // Dani
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
+import axiosWithAuth from "../util";
 import schema from "../yup/updateAccSchema";
 
 const initialUpdateValues = {
@@ -47,6 +48,16 @@ const UpdateAccount = () => {
       phoneNumber: updateValues.phoneNumber,
     };
     validate(UpdatedInfo);
+    // axiosWithAuth()
+    //   .put(
+    //     `https://watergrows.herokuapp.com/api/users/update-account/:username`,
+    //     UpdatedInfo
+    //   )
+    //   .then((res) => {
+    //     console.log(res.data);
+    //   }).catch(err => {
+    //     console.log(err.response)
+    //   })
   };
 
   useEffect(() => {

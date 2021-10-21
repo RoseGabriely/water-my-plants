@@ -68,7 +68,6 @@ function App() {
 
 export default App;
 
-//
 const StyledNav = styled.div`
   display: flex;
   justify-content: center;

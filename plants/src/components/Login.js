@@ -3,8 +3,12 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import * as yup from "yup";
 import loginSchema from "../yup/yupLoginSchema";
+import { plantsStart } from "../actions";
+import { connect } from "react-redux";
 
-export default function Login() {
+const Login = (props) => {
+  const { plantsStart } = props;
+
   const initialLoginValues = {
     username: "",
     password: "",
@@ -40,6 +44,7 @@ export default function Login() {
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         push("/plants");
+        plantsStart();
       })
       .catch((err) => {
         console.log(err.response);
@@ -80,4 +85,6 @@ export default function Login() {
       <p style={{ color: "red" }}>{errors.password}</p>
     </>
   );
-}
+};
+
+export default connect(null, { plantsStart })(Login);

@@ -3,16 +3,13 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import axiosWithAuth from "../util";
-import schema from "../yup/updateAccSchema";
+import updateAccSchema from "../yup/updateAccSchema";
 
-const initialUpdateValues = {
-  password: "",
-  phoneNumber: "",
-};
+const initialUpdateValues = {};
 
 const initialUpdateErrors = {
   password: "",
-  phoneNumber: "",
+  phone: ""
 };
 
 const initialDisabled = true;
@@ -23,45 +20,40 @@ const UpdateAccount = () => {
   const [disabled, setDisabled] = useState(initialDisabled);
 
   //*Validation
-  const validate = (name, value) => {
-    yup
-      .reach(schema, name)
-      .validate(value)
-      .then(() => setUpdateErrors({ ...updateErrors, [name]: "" }))
-      .catch((err) =>
-        setUpdateErrors({ ...updateErrors, [name]: err.errors[0] })
-      );
-  };
+  // const validate = (name, value) => {
+  //   yup
+  //     .reach(updateAccSchema, name)
+  //     .validate(value)
+  //     .then(() => setUpdateErrors({ ...updateErrors, [name]: "" }))
+  //     .catch((err) => setUpdateErrors({ ...updateErrors, [name]: err.errors[0] }));
+  // };
 
   //*OnChange
   const onChange = (evt) => {
     const { name, value } = evt.target;
-    validate(name, value);
+    // validate(name, value);
+    console.log(name, value);
     setUpdateValues({ ...updateValues, [name]: value });
   };
 
   //*Submit
   const onSubmit = (evt) => {
     evt.preventDefault();
-    const UpdatedInfo = {
-      password: updateValues.password,
-      phoneNumber: updateValues.phoneNumber,
-    };
-    validate(UpdatedInfo);
-    // axiosWithAuth()
-    //   .put(
-    //     `https://watergrows.herokuapp.com/api/users/update-account/:username`,
-    //     UpdatedInfo
-    //   )
-    //   .then((res) => {
-    //     console.log(res.data);
-    //   }).catch(err => {
-    //     console.log(err.response)
-    //   })
+
+    const username = localStorage.getItem("username");
+    // validate(updateValues);
+    axiosWithAuth()
+      .put(`https://watergrows.herokuapp.com/api/users/update-account/${username}`, updateValues)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
   };
 
   useEffect(() => {
-    schema.isValid(updateValues).then((valid) => setDisabled(!valid));
+    updateAccSchema.isValid(updateValues).then((valid) => setDisabled(!valid));
   }, [updateValues]);
 
   return (
@@ -82,16 +74,16 @@ const UpdateAccount = () => {
         <label>
           New Phone Number:{" "}
           <input
-            type="tel"
-            name="phoneNumber"
-            value={updateValues.phoneNumber}
+            type="text"
+            name="phone"
+            value={updateValues.phone}
             onChange={onChange}
             placeholder="Enter New Phone Number"
-            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+            // pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
           />
         </label>
         <br />
-        <button disabled={disabled}>Save Changes</button>
+        <button>Save Changes</button>
       </form>
       <p style={{ color: "red" }}>{updateErrors.password}</p>
       <p style={{ color: "red" }}>{updateErrors.phoneNumber}</p>

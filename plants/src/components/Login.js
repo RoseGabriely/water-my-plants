@@ -9,12 +9,12 @@ import { connect } from "react-redux";
 const Login = () => {
   const initialLoginValues = {
     username: "",
-    password: "",
+    password: ""
   };
   const initialErrors = {
     apiError: "",
     username: "",
-    password: "",
+    password: ""
   };
   const { push } = useHistory();
   const [loginValues, setLoginValues] = useState(initialLoginValues);
@@ -40,7 +40,9 @@ const Login = () => {
     axios
       .post("https://watergrows.herokuapp.com/api/users/login", loginValues)
       .then((res) => {
+        console.log(res);
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("username", loginValues.username);
         push("/plants");
       })
       .catch((err) => {

@@ -16,6 +16,8 @@ function App() {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("username");
+
     push("/");
   };
 
@@ -41,11 +43,7 @@ function App() {
               </Link>
             </StyledLink>
             <StyledLink>
-              <Link
-                to="/"
-                style={{ textDecoration: "none" }}
-                onClick={handleLogout}
-              >
+              <Link to="/" style={{ textDecoration: "none" }} onClick={handleLogout}>
                 Logout
               </Link>
             </StyledLink>

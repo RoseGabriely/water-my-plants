@@ -20,16 +20,13 @@ const initialState = {
   error: "",
 };
 
-//mapping plant array: (plant)=>
-//action.payload.id === plant.id ? action.payload : plant
-
 const plantsReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_PLANT:
       return {
         ...state,
         plantsArr: state.plantsArr.map((plant) =>
-          action.payload.id === plant.id ? action.payload : plant
+          action.payload[0].id === plant.id ? action.payload[0] : plant
         ),
       };
     case SET_CURRENT:

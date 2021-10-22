@@ -49,6 +49,7 @@ export const addPlant = (newPlant) => {
     axiosWithAuth()
       .post("https://watergrows.herokuapp.com/api/plants", newPlant)
       .then((res) => {
+        console.log(res);
         dispatch(addPlantAction(res.data));
       })
       .catch((err) => {

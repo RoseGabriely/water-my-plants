@@ -7,6 +7,7 @@ import styled from "styled-components";
 import HomePage from "./components/HomePage";
 import Login from "./components/Login";
 import PlantsList from "./components/PlantsList";
+import CreateAccount from "./components/CreateAccount";
 import UpdateAccount from "./components/UpdateAccount";
 import PrivateRoute from "./components/PrivateRoute";
 import UpdatePlant from "./components/UpdatePlant";
@@ -51,6 +52,7 @@ function App() {
         </nav>
       </header>
       <Switch>
+        <Route path="/create-account" component={CreateAccount} />
         <PrivateRoute path="/update-plant" component={UpdatePlant} />
         <PrivateRoute path="/update" component={UpdateAccount} />
         <PrivateRoute path="/plants" component={PlantsList} />

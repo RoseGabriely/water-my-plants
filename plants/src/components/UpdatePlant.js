@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { updatePlant } from "../actions";
+import { updatePlant, setCurrent } from "../actions";
+import { useHistory } from "react-router";
 
-const UpdatePlant = () => {
+const UpdatePlant = (props) => {
+  const { push } = useHistory();
   const initialValues = {
-    nickname: "",
-    species: "",
-    h2oFrequency: "",
+    id: props.currentPlantInfo.id,
+    nickname: props.currentPlantInfo.nickname,
+    species: props.currentPlantInfo.species,
+    h2oFrequency: props.currentPlantInfo.h2oFrequency,
   };
   const [updatedPlant, setUpdatedPlant] = useState(initialValues);
 
@@ -15,6 +18,14 @@ const UpdatePlant = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    props.updatePlant(updatedPlant);
+    props.setCurrent({
+      id: null,
+      nickname: "",
+      species: "",
+      h2oFrequency: "",
+    });
+    push("/plants");
   };
   return (
     <div className="updatePlant">
@@ -63,7 +74,10 @@ const UpdatePlant = () => {
 const mapStateToProps = (state) => {
   return {
     plantsArr: state.plantsArr,
+    currentPlantInfo: state.currentPlantInfo,
   };
 };
 
-export default connect(mapStateToProps, { updatePlant })(UpdatePlant);
+export default connect(mapStateToProps, { updatePlant, setCurrent })(
+  UpdatePlant
+);

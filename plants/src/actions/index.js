@@ -5,6 +5,8 @@ export const FETCH_SUCCESS = "FETCH_SUCCESS";
 export const FETCH_FAIL = "FETCH_FAIL";
 export const DELETE_PLANT = "DELETE_PLANT";
 export const ADD_PLANT = "ADD_PLANT";
+export const SET_CURRENT = "SET_CURRENT";
+export const UPDATE_PLANT = "UPDATE_PLANT";
 
 export const addPlantAction = (plant) => {
   return { type: ADD_PLANT, payload: plant };
@@ -20,6 +22,12 @@ export const fetchFail = (error) => {
 };
 export const delPlant = (id) => {
   return { type: DELETE_PLANT, payload: id };
+};
+export const setCurrent = (plant) => {
+  return { type: SET_CURRENT, payload: plant };
+};
+export const updateCurrentPlant = (updatedPlant) => {
+  return { type: UPDATE_PLANT, payload: updatedPlant };
 };
 
 export const plantsStart = () => {
@@ -57,7 +65,7 @@ export const deletePlant = (id) => {
         dispatch(delPlant(id));
       })
       .catch((err) => {
-        dispatch(fetchFail(err.response.data.message));
+        dispatch(fetchFail(err.response));
       });
   };
 };
@@ -67,10 +75,10 @@ export const updatePlant = (plant) => {
     axiosWithAuth()
       .put(`https://watergrows.herokuapp.com/api/plants/${plant.id}`, plant)
       .then((res) => {
-        dispatch(fetchSuccess(res.data));
+        dispatch(updateCurrentPlant(res.data));
       })
       .catch((err) => {
-        dispatch(fetchFail(err.response.data.message));
+        dispatch(fetchFail(err.response));
       });
   };
 };

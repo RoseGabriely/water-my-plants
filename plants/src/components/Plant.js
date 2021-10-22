@@ -2,13 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { deletePlant } from "../actions";
+import { deletePlant, setCurrent } from "../actions";
 
 const Plant = (props) => {
   const { plant, deletePlant } = props;
   const { push } = useHistory();
 
   const handleUpdate = () => {
+    props.setCurrent(plant);
     push("/update-plant");
   };
   const handleDelete = () => {
@@ -32,10 +33,11 @@ const Plant = (props) => {
 const mapStateToProps = (state) => {
   return {
     plantsArr: state.plantsArr,
+    currentPlant: state.currentPlant,
   };
 };
 
-export default connect(mapStateToProps, { deletePlant })(Plant);
+export default connect(mapStateToProps, { deletePlant, setCurrent })(Plant);
 
 const StyledPlant = styled.div`
   background-color: #fbe7c6;

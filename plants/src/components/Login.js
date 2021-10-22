@@ -1,20 +1,22 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import axios from "axios";
+import { connect } from "react-redux";
+
 import * as yup from "yup";
 import loginSchema from '../yup/yupLoginSchema';
-import { Link } from 'react-router-dom';
+import { plantsStart } from "../actions";
 
 
-export default function Login() {
+const Login = () => {
   const initialLoginValues = {
     username: "",
-    password: "",
+    password: ""
   };
   const initialErrors = {
     apiError: "",
     username: "",
-    password: "",
+    password: ""
   };
   const { push } = useHistory();
   const [loginValues, setLoginValues] = useState(initialLoginValues);
@@ -41,7 +43,9 @@ export default function Login() {
     axios
       .post("https://watergrows.herokuapp.com/api/users/login", loginValues)
       .then((res) => {
+        console.log(res);
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("username", loginValues.username);
         push("/plants");
       })
       .catch((err) => {
@@ -86,4 +90,6 @@ export default function Login() {
       <p style={{ color: "red" }}>{errors.password}</p>
     </>
   );
-}
+};
+
+export default connect(null, { plantsStart })(Login);

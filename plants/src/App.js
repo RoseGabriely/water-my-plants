@@ -1,8 +1,6 @@
-import { Link, Route, Switch } from "react-router-dom";
+import React from "react";
+import { Link, Route, Switch, useHistory } from "react-router-dom";
 import "./css/App.css";
-import { useEffect } from "react";
-import { connect } from "react-redux";
-import { plantsStart } from "./actions";
 import styled from "styled-components";
 
 //*Custom Components
@@ -11,11 +9,18 @@ import Login from "./components/Login";
 import PlantsList from "./components/PlantsList";
 import CreateAccount from "./components/CreateAccount";
 import UpdateAccount from "./components/UpdateAccount";
+import PrivateRoute from "./components/PrivateRoute";
+import UpdatePlant from "./components/UpdatePlant";
 
-function App(props) {
-  useEffect(() => {
-    props.plantsStart();
-  }, []);
+function App() {
+  const { push } = useHistory();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+
+    push("/");
+  };
 
   return (
     <div className="App">
@@ -38,21 +43,21 @@ function App(props) {
                 Plants
               </Link>
             </StyledLink>
+            <StyledLink>
+              <Link to="/" style={{ textDecoration: "none" }} onClick={handleLogout}>
+                Logout
+              </Link>
+            </StyledLink>
           </StyledNav>
         </nav>
       </header>
       <Switch>
-        <Route path="/create-account">
-          <CreateAccount/>
-        </Route>
-        <Route path="/update">
-          <UpdateAccount />
-        </Route>
+        <Route path="/create-account" component={CreateAccount} />
+        <PrivateRoute path="/update-plant" component={UpdatePlant} />
+        <PrivateRoute path="/update" component={UpdateAccount} />
+        <PrivateRoute path="/plants" component={PlantsList} />
         <Route path="/sign-in">
           <Login />
-        </Route>
-        <Route path="/plants">
-          <PlantsList />
         </Route>
         <Route path="/">
           <HomePage />
@@ -62,9 +67,8 @@ function App(props) {
   );
 }
 
-export default connect(null, { plantsStart })(App);
+export default App;
 
-//
 const StyledNav = styled.div`
   display: flex;
   justify-content: center;

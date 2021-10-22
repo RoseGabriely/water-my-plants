@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { plantsStart } from "../actions";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import Plant from "./Plant";
 
 const PlantsList = (props) => {
-  const handleClick = () => {};
+  const { push } = useHistory();
+  const { plantsStart } = props;
+
+  useEffect(() => {
+    plantsStart();
+  }, [plantsStart]);
+
+  const handleClick = () => {
+    push("/");
+  };
+
   return (
     <div className="PlantsList">
       <header>
@@ -23,7 +34,7 @@ const PlantsList = (props) => {
         <div>
           <h2>Plants List</h2>
           {!props.isFetching &&
-            props.plantsArr[0].map((plant) => {
+            props.plantsArr.map((plant) => {
               return <Plant key={plant.id} plant={plant} />;
             })}
         </div>

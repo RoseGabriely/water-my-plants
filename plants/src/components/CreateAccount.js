@@ -4,23 +4,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const initialValues = {
-    firstName: "",
-    lastName: "",
-    email: "",
+    phone: "",
     username: "",
     password: "",
 };
-const initialErrors = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    username: "",
-    password: "",
-}
 
 export default function CreateAccount() {
     const [values, setValues] = useState(initialValues);
-    const [errors, setErrors] = useState(initialErrors);
+    const [errors, setErrors] = useState(initialValues);
     const [disabled, setDisabled] = useState(true);  
     // ON CHANGE //
     const change = e => {
@@ -51,15 +42,13 @@ export default function CreateAccount() {
     const submit = e => {
         e.preventDefault()
         const newAccount = {
-            firstName: values.firstName,
-            lastName: values.lastName,
-            email: values.email,
+            phone: values.phone,
             username: values.username,
             password: values.password,
         };
 
-        // Check if email exists
 
+        // Check if phone exists
         postNewAccount(newAccount)
     }
     // ENABLE SUBMIT BUTTON
@@ -71,36 +60,16 @@ export default function CreateAccount() {
         <>
         <h1>Create Account</h1>
         <div className="errors">
-            <div>{errors.firstName}</div>
-            <div>{errors.lastName}</div>
-            <div>{errors.email}</div>
+            <div>{errors.phone}</div>
             <div>{errors.username}</div>
             <div>{errors.password}</div>
         </div>
         <form id="create-account-form" onSubmit={submit}>
-            <label>First Name: 
+            <label>Phone Number: 
                 <input 
-                    type="text"
-                    name="firstName"
-                    value={values.firstName}
-                    onChange={change}
-                >
-                </input>
-            </label>
-            <label>Last Name: 
-                <input 
-                    type="text"
-                    name="lastName"
-                    value={values.lastName}
-                    onChange={change}
-                >
-                </input>
-            </label>
-            <label>Email: 
-                <input 
-                    type="email"
-                    name="email"
-                    value={values.email}
+                    type="phone"
+                    name="phone"
+                    value={values.phone}
                     onChange={change}
                 >
                 </input>
@@ -128,3 +97,4 @@ export default function CreateAccount() {
         </>
     )
 }
+

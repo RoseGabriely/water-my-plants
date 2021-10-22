@@ -1,20 +1,11 @@
 import * as yup from 'yup';
 
 const createAccountSchema = yup.object().shape({
-    firstName: yup
+    phone: yup
         .string()
-        .trim()
-        .min(3, 'First name must have at least 3 characters')
-        .required('First name required'),
-    lastName: yup
-        .string()
-        .trim()
-        .min(3, 'Last name must have at least 3 characters')
-        .required('Last name required'),
-    email: yup
-        .string()
-        .email('Must be a valid email')
-        .required('Email required'),
+        .required('Phone required')
+        .min(10, 'to short')
+        .max(10, 'too long'),
     username: yup
         .string()
         .trim()
@@ -23,11 +14,8 @@ const createAccountSchema = yup.object().shape({
     password: yup
         .string()
         .trim()
-        .min(6, 'Password must have at least 6 characters')
+        .min(5, 'Password must have at least 5 characters')
         .required('Password required')
-        .matches(/[a-z]/, 'at least one lowercase letter')
-        .matches(/[A-Z]/, 'at least one uppercase letter')
-        .matches(/[a-zA-Z]+[^a-zA-z\s]+/, 'at least 1 number or special character')
 });
 
 export default createAccountSchema;

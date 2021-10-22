@@ -27,7 +27,7 @@ const Login = () => {
       .reach(loginSchema, name)
       .validate(value)
       .then(() => setErrors({ ...errors, [name]: "" }))
-      .catch((err) => setErrors({ ...errors, [name]: err.errors }));
+      .catch((err) => setErrors({ ...errors, [name]: err.errors[0] }));
   };
   // ON CHANGE //
   const change = (e) => {
@@ -41,13 +41,11 @@ const Login = () => {
     axios
       .post("https://watergrows.herokuapp.com/api/users/login", loginValues)
       .then((res) => {
-        console.log(res);
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("username", loginValues.username);
         push("/plants");
       })
       .catch((err) => {
-        console.log(err.response);
         setErrors({ ...errors, apiError: err.response.data.message });
       });
   };

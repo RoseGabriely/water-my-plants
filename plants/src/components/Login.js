@@ -4,19 +4,18 @@ import axios from "axios";
 import { connect } from "react-redux";
 
 import * as yup from "yup";
-import loginSchema from '../yup/yupLoginSchema';
+import loginSchema from "../yup/yupLoginSchema";
 import { plantsStart } from "../actions";
-
 
 const Login = () => {
   const initialLoginValues = {
     username: "",
-    password: ""
+    password: "",
   };
   const initialErrors = {
     apiError: "",
     username: "",
-    password: ""
+    password: "",
   };
   const { push } = useHistory();
   const [loginValues, setLoginValues] = useState(initialLoginValues);
@@ -28,8 +27,7 @@ const Login = () => {
       .reach(loginSchema, name)
       .validate(value)
       .then(() => setErrors({ ...errors, [name]: "" }))
-      .catch(err => setErrors({ ...errors, [name]: err.errors }))
-
+      .catch((err) => setErrors({ ...errors, [name]: err.errors }));
   };
   // ON CHANGE //
   const change = (e) => {
@@ -80,9 +78,9 @@ const Login = () => {
           />
         </label>
         <br />
-        <button onClick={validate}>Login</button>
+        <button>Login</button>
         <Link to="/create-account">
-        <button>Create Account</button>
+          <button>Create Account</button>
         </Link>
       </form>
       <p style={{ color: "red" }}>{errors.apiError}</p>

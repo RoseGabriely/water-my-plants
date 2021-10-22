@@ -44,7 +44,11 @@ function App() {
               </Link>
             </StyledLink>
             <StyledLink>
-              <Link to="/" style={{ textDecoration: "none" }} onClick={handleLogout}>
+              <Link
+                to="/"
+                style={{ textDecoration: "none" }}
+                onClick={handleLogout}
+              >
                 Logout
               </Link>
             </StyledLink>
@@ -52,16 +56,12 @@ function App() {
         </nav>
       </header>
       <Switch>
-        <Route path="/create-account" component={CreateAccount} />
         <PrivateRoute path="/update-plant" component={UpdatePlant} />
         <PrivateRoute path="/update" component={UpdateAccount} />
         <PrivateRoute path="/plants" component={PlantsList} />
-        <Route path="/sign-in">
-          <Login />
-        </Route>
-        <Route path="/">
-          <HomePage />
-        </Route>
+        <Route path="/create-account" component={CreateAccount} />
+        <Route path="/sign-in" component={Login} />
+        <Route path="/" component={HomePage} />
       </Switch>
     </div>
   );

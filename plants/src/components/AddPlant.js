@@ -22,6 +22,7 @@ const AddPlant = (props) => {
   };
   return (
     <div className="addPlant">
+      <h2>Add Plant</h2>
       <form onSubmit={handleSubmit}>
         <label>
           {" "}

@@ -11,6 +11,8 @@ import CreateAccount from "./components/CreateAccount";
 import UpdateAccount from "./components/UpdateAccount";
 import PrivateRoute from "./components/PrivateRoute";
 import UpdatePlant from "./components/UpdatePlant";
+import AddPlant from "./components/AddPlant";
+import Test from "./components/test";
 
 function App() {
   const { push } = useHistory();
@@ -56,9 +58,11 @@ function App() {
         </nav>
       </header>
       <Switch>
+        <PrivateRoute path="/add-plant" component={AddPlant} />
         <PrivateRoute path="/update-plant" component={UpdatePlant} />
         <PrivateRoute path="/update" component={UpdateAccount} />
         <PrivateRoute path="/plants" component={PlantsList} />
+        <PrivateRoute path="/test" component={Test} />
         <Route path="/create-account" component={CreateAccount} />
         <Route path="/sign-in" component={Login} />
         <Route path="/" component={HomePage} />

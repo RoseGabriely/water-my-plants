@@ -3,7 +3,12 @@ import axiosWithAuth from "../util";
 export const FETCH_START = "FETCH_START";
 export const FETCH_SUCCESS = "FETCH_SUCCESS";
 export const FETCH_FAIL = "FETCH_FAIL";
+export const DELETE_PLANT = "DELETE_PLANT";
+export const ADD_PLANT = "ADD_PLANT";
 
+export const addPlantAction = (plant) => {
+  return { type: ADD_PLANT, payload: plant };
+};
 export const fetchStart = () => {
   return { type: FETCH_START };
 };
@@ -12,6 +17,9 @@ export const fetchSuccess = (plantData) => {
 };
 export const fetchFail = (error) => {
   return { type: FETCH_FAIL, payload: error };
+};
+export const delPlant = (id) => {
+  return { type: DELETE_PLANT, payload: id };
 };
 
 export const plantsStart = () => {
@@ -33,7 +41,7 @@ export const addPlant = (newPlant) => {
     axiosWithAuth()
       .post("https://watergrows.herokuapp.com/api/plants", newPlant)
       .then((res) => {
-        dispatch(fetchSuccess(res.data));
+        dispatch(addPlantAction(res.data));
       })
       .catch((err) => {
         dispatch(fetchFail(err.response.data.message));
@@ -46,7 +54,7 @@ export const deletePlant = (id) => {
     axiosWithAuth()
       .delete(`https://watergrows.herokuapp.com/api/plants/${id}`)
       .then((res) => {
-        dispatch(fetchSuccess(res.data));
+        dispatch(delPlant(id));
       })
       .catch((err) => {
         dispatch(fetchFail(err.response.data.message));

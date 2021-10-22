@@ -13,12 +13,12 @@ const Plant = (props) => {
   };
   const handleDelete = () => {
     deletePlant(plant.id);
+    push("/test");
   };
 
   return (
     <div className="plant">
       <StyledPlant>
-        <h2>Plant {plant.id}</h2>
         <h3>Nickname: {plant.nickname}</h3>
         <p>Species: {plant.species}</p>
         <p>Watering Frequency: {plant.h2oFrequency}</p>
@@ -28,7 +28,14 @@ const Plant = (props) => {
     </div>
   );
 };
-export default connect(null, { deletePlant })(Plant);
+
+const mapStateToProps = (state) => {
+  return {
+    plantsArr: state.plantsArr,
+  };
+};
+
+export default connect(mapStateToProps, { deletePlant })(Plant);
 
 const StyledPlant = styled.div`
   background-color: #fbe7c6;

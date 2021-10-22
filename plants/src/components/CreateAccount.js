@@ -67,17 +67,17 @@ export default function CreateAccount() {
             value={values.phone}
             onChange={change}
             placeholder="Enter Phone Number"
-          ></input>
+          />
         </label>
         <label>
           Username:
           <input
-            type="name"
+            type="text"
             name="username"
             value={values.username}
             onChange={change}
             placeholder="Enter Username"
-          ></input>
+          />
         </label>
         <label>
           Password:
@@ -87,7 +87,7 @@ export default function CreateAccount() {
             value={values.password}
             onChange={change}
             placeholder="Enter Password"
-          ></input>
+          />
         </label>
         <button disabled={disabled}>Create</button>
         <div className="errors">

@@ -3,21 +3,15 @@ import { plantsStart } from "../actions";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
 
 import Plant from "./Plant";
 
 const PlantsList = (props) => {
-  const { push } = useHistory();
   const { plantsStart } = props;
 
   useEffect(() => {
     plantsStart();
   }, [plantsStart]);
-
-  const handleClick = () => {
-    push("/");
-  };
 
   return (
     <div className="PlantsList">
@@ -39,7 +33,9 @@ const PlantsList = (props) => {
             })}
         </div>
       </StyledPlantsList>
-      <button onClick={handleClick}>Add Plant</button>
+      <Link to="/add-plant">
+        <button>Add Plant</button>
+      </Link>
     </div>
   );
 };

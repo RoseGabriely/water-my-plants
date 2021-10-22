@@ -5,6 +5,7 @@ const Test = () => {
   const { push } = useHistory();
   useEffect(() => {
     push("/plants");
+    // eslint-disable-next-line
   }, []);
   return <div className="test"></div>;
 };

@@ -28,7 +28,6 @@ const plantsReducer = (state = initialState, action) => {
     case UPDATE_PLANT:
       return {
         ...state,
-        // plantsArr: action.payload,
         plantsArr: state.plantsArr.map((plant) =>
           action.payload.id === plant.id ? action.payload : plant
         ),

@@ -1,20 +1,22 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import axios from "axios";
-import * as yup from "yup";
-import loginSchema from "../yup/yupLoginSchema";
-import { plantsStart } from "../actions";
 import { connect } from "react-redux";
+
+import * as yup from "yup";
+import loginSchema from '../yup/yupLoginSchema';
+import { plantsStart } from "../actions";
+
 
 const Login = () => {
   const initialLoginValues = {
     username: "",
-    password: "",
+    password: ""
   };
   const initialErrors = {
     apiError: "",
     username: "",
-    password: "",
+    password: ""
   };
   const { push } = useHistory();
   const [loginValues, setLoginValues] = useState(initialLoginValues);
@@ -26,7 +28,8 @@ const Login = () => {
       .reach(loginSchema, name)
       .validate(value)
       .then(() => setErrors({ ...errors, [name]: "" }))
-      .catch((err) => setErrors({ ...errors, [name]: err.errors[0] }));
+      .catch(err => setErrors({ ...errors, [name]: err.errors }))
+
   };
   // ON CHANGE //
   const change = (e) => {
@@ -40,7 +43,9 @@ const Login = () => {
     axios
       .post("https://watergrows.herokuapp.com/api/users/login", loginValues)
       .then((res) => {
+        console.log(res);
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("username", loginValues.username);
         push("/plants");
       })
       .catch((err) => {
@@ -75,7 +80,10 @@ const Login = () => {
           />
         </label>
         <br />
-        <button>Login</button>
+        <button onClick={validate}>Login</button>
+        <Link to="/create-account">
+        <button>Create Account</button>
+        </Link>
       </form>
       <p style={{ color: "red" }}>{errors.apiError}</p>
       <p style={{ color: "red" }}>{errors.username}</p>

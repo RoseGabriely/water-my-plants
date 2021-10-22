@@ -14,7 +14,7 @@ const createAccountSchema = yup.object().shape({
     password: yup
         .string()
         .trim()
-        .min(6, 'Password must have at least 6 characters')
+        .min(5, 'Password must have at least 5 characters')
         .required('Password required')
 });
 

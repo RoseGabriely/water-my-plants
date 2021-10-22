@@ -11,29 +11,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-/* LOGIN PAGE */
-
-#login-form {
+/* LOGIN / CREATE ACCOUNT PAGE */
+#login-form, 
+#create-account-form {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 10%;
 }
-
-#login-page button {
-  background-color: rgb(58, 139, 58);
-  color: white;
-  font-weight: bold;
-  padding: 0.5% 2%;
-  cursor: pointer;
-  border: none;
-  width: 10%;
-  margin: 1.5%;
-  box-shadow: 1px 1px 1px 1px #e0e0e0;
+#create-account-form input {
+  margin: 1%
 }
-
-#login-page button:hover {
-  background-color: rgb(92, 153, 92);
+.errors {
+  color: red;
 }
 
 

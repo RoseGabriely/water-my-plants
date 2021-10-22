@@ -47,8 +47,8 @@ export default function CreateAccount() {
             password: values.password,
         };
 
-        // Check if phone exists
 
+        // Check if phone exists
         postNewAccount(newAccount)
     }
     // ENABLE SUBMIT BUTTON
@@ -60,8 +60,6 @@ export default function CreateAccount() {
         <>
         <h1>Create Account</h1>
         <div className="errors">
-            <div>{errors.firstName}</div>
-            <div>{errors.lastName}</div>
             <div>{errors.phone}</div>
             <div>{errors.username}</div>
             <div>{errors.password}</div>
@@ -99,3 +97,4 @@ export default function CreateAccount() {
         </>
     )
 }
+
